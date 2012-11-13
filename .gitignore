@@ -1,0 +1,12 @@
+*.ReSharper
+RavenDB
+App_Data
+_ReSharper*
+bin
+Bin
+obj
+*.suo
+*.user
+packages
+RequestReduceContent
+TestResults
