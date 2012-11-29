@@ -1,3 +1,6 @@
+Using NDDD Sample to understand event sourcing
+
+
 NDDDSample is the project which demonstrates a practical implementation of the building block patterns described in the Eric Evans book 
 based on a real but simplified cargo domain (which is also used as example in Eric Evans’ book). 
 
