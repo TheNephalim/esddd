@@ -1,9 +1,10 @@
-﻿namespace NDDDSample.Tests.Infrastructure.Persistence.NHibernate
+﻿using NDDDSample.Persistence.MongoDb;
+
+namespace NDDDSample.Tests.Infrastructure.Persistence.NHibernate
 {
     #region Usings
 
     using NDDDSample.Domain.Model.Voyages;
-    using NDDDSample.Persistence.NHibernate;
     using NUnit.Framework;
 
     #endregion
@@ -17,7 +18,7 @@
         public override void SetUp()
         {
             base.SetUp();
-            voyageRepository = new VoyageRepositoryHibernate();
+            voyageRepository = new VoyageRepositoryMongo(Utils.ShippingDb);
         }
 
         [Test]
@@ -25,7 +26,7 @@
         {
             Voyage voyage = voyageRepository.Find(new VoyageNumber("0101"));
             Assert.IsNotNull(voyage);
-            Assert.AreEqual("0101", voyage.VoyageNumber.IdString);
+            Assert.AreEqual("0101", voyage.voyageNumber.IdString);
 
             //TODO adapt
             /*Assert.AreEqual(STOCKHOLM, carrierMovement.DepartureLocation);

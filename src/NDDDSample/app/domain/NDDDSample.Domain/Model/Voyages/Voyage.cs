@@ -1,4 +1,6 @@
-﻿namespace NDDDSample.Domain.Model.Voyages
+﻿using MongoDB.Bson;
+
+namespace NDDDSample.Domain.Model.Voyages
 {
     #region Usings
 
@@ -19,8 +21,7 @@
         // Null object pattern
         public static readonly Voyage NONE = new Voyage(new VoyageNumber(""), Schedule.EMPTY);
         private readonly Schedule schedule;
-        private readonly VoyageNumber voyageNumber;
-        private int id;
+        public ObjectId id { get; set; }
 
         #region Nested Voyage Builder 
 
@@ -81,7 +82,7 @@
 
         public virtual bool SameIdentityAs(Voyage other)
         {
-            return other != null && VoyageNumber.SameValueAs(other.VoyageNumber);
+            return other != null && voyageNumber.SameValueAs(other.voyageNumber);
         }
 
         #endregion
@@ -91,10 +92,7 @@
         /// <summary>
         /// Voyage number.
         /// </summary>
-        public virtual VoyageNumber VoyageNumber
-        {
-            get { return voyageNumber; }
-        }
+        public virtual VoyageNumber voyageNumber { get; set; }
 
         /// <summary>
         /// GetSchedule

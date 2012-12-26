@@ -17,7 +17,7 @@
 
         public void Store(HandlingEvent evnt)
         {
-            TrackingId trackingId = evnt.Cargo.TrackingId;
+            TrackingId trackingId = evnt.Cargo.trackingId;
 
             List<HandlingEvent> list;
             if (!eventMap.ContainsKey(trackingId))

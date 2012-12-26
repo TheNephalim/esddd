@@ -17,7 +17,7 @@
         public void CargoWasHandled(HandlingEvent evnt)
         {
             System.Console.WriteLine("EVENT: cargo was handled: " + evnt);
-            cargoInspectionService.InspectCargo(evnt.Cargo.TrackingId);
+            cargoInspectionService.InspectCargo(evnt.Cargo.trackingId);
         }
 
 
@@ -29,7 +29,7 @@
 
         public void CargoHasArrived(Cargo cargo)
         {
-            System.Console.WriteLine("EVENT: cargo has arrived: " + cargo.TrackingId.IdString);
+            System.Console.WriteLine("EVENT: cargo has arrived: " + cargo.trackingId.IdString);
         }
 
 

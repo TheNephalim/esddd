@@ -17,7 +17,7 @@
         // Country code is exactly two letters.
         // Location code is usually three letters, but may contain the numbers 2-9 as well
         private static readonly Regex VALID_PATTERN = new Regex("[a-zA-Z]{2}[a-zA-Z2-9]{3}", RegexOptions.Compiled);
-        private readonly string unlocode;
+        public string Id { get; set; }
 
         #region Constr
 
@@ -31,7 +31,7 @@
             Validate.IsTrue(VALID_PATTERN.Match(countryAndLocation).Success,
                             countryAndLocation + " is not a valid UN/LOCODE (does not match pattern)");
 
-            unlocode = countryAndLocation.ToUpper();
+            Id = countryAndLocation.ToUpper();
         }
 
         protected UnLocode()
@@ -46,7 +46,7 @@
         /// </summary>
         public string IdString
         {
-            get { return unlocode; }
+            get { return Id; }
         }
 
         #region IValueObject<UnLocode> Members
@@ -58,7 +58,7 @@
         /// <returns>true if the given value object's and this value object's attributes are the same.</returns>
         public bool SameValueAs(UnLocode other)
         {
-            return other != null && unlocode.Equals(other.unlocode);
+            return other != null && Id.Equals(other.Id);
         }
 
         #endregion
@@ -83,7 +83,7 @@
 
         public override int GetHashCode()
         {
-            return unlocode.GetHashCode();
+            return Id.GetHashCode();
         }
 
         public override string ToString()

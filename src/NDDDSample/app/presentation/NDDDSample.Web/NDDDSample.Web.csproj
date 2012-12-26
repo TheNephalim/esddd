@@ -38,7 +38,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\..\..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\..\..\..\..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\..\..\..\..\packages\Autofac.Mvc4.2.6.2.859\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\log4net\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\WindowsAzure\Microsoft.WindowsAzure.ServiceRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Discovery" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -48,6 +76,30 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -72,7 +124,9 @@
     <Content Include="Content\style.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="hibernate.cfg.xml" />
+    <Content Include="hibernate.cfg.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\dom.js" />
     <Content Include="Scripts\event.js" />
@@ -94,6 +148,23 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CargoAdmin\CargoAdminController.cs" />
+    <Compile Include="Controllers\CargoAdmin\LegCommand.cs" />
+    <Compile Include="Controllers\CargoAdmin\PickNewDestinationViewModel.cs" />
+    <Compile Include="Controllers\CargoAdmin\RegistrationCommand.cs" />
+    <Compile Include="Controllers\CargoAdmin\RegistrationCommandBinder.cs" />
+    <Compile Include="Controllers\CargoAdmin\RegistrationFormViewModel.cs" />
+    <Compile Include="Controllers\CargoAdmin\SelectItineraryViewModel.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ErrorMessageViewModel.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MessageSource.cs" />
+    <Compile Include="Controllers\Tracking\CargoTrackingController.cs" />
+    <Compile Include="Controllers\Tracking\CargoTrackingViewAdapter.cs" />
+    <Compile Include="Controllers\Tracking\HandlingEventViewAdapter.cs" />
+    <Compile Include="Controllers\Tracking\TrackCommand.cs" />
+    <Compile Include="Controllers\Tracking\TrackCommandBinder.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -102,16 +173,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Initializers\ComponentRegistrar.cs" />
-    <Compile Include="Initializers\NhInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Home\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\Home\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\Shared\Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -119,10 +191,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Site.Master" />
-    <Content Include="Views\Web.config" />
     <Content Include="NDDDSample Web.url" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="Views\Web.config" />
+    <None Include="Views\Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Views\Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -130,6 +209,32 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="Windsor.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\domain\NDDDSample.Domain\NDDDSample.Domain.csproj">
+      <Project>{A57A3967-E613-4598-94FF-BD55711D4CAD}</Project>
+      <Name>NDDDSample.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\infrastructure\NDDDSample.Infrastructure.ExternalRouting\NDDDSample.Infrastructure.ExternalRouting.csproj">
+      <Project>{d3ec535e-06e8-4083-80cf-b94c58dc4052}</Project>
+      <Name>NDDDSample.Infrastructure.ExternalRouting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\infrastructure\NDDDSample.Infrastructure\NDDDSample.Infrastructure.csproj">
+      <Project>{6d41623a-7b9e-4dfa-8f2a-1b4ebef7f990}</Project>
+      <Name>NDDDSample.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\infrastructure\NDDDSample.Persistence.MongoDb\NDDDSample.Persistence.MongoDb.csproj">
+      <Project>{aa8cfea2-a6b4-402e-b0ef-6a1edb917779}</Project>
+      <Name>NDDDSample.Persistence.MongoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\interfaces\NDDDSample.Interfaces.BookingRemoteService.Common\NDDDSample.Interfaces.BookingRemoteService.Common.csproj">
+      <Project>{B293706A-1955-4A51-9E87-E7F03FB3728B}</Project>
+      <Name>NDDDSample.Interfaces.BookingRemoteService.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\interfaces\NDDDSample.Interfaces.BookingRemoteService\NDDDSample.Interfaces.BookingRemoteService.csproj">
+      <Project>{7c9a434d-bc0e-4692-862d-56f57d39efd6}</Project>
+      <Name>NDDDSample.Interfaces.BookingRemoteService</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -144,7 +249,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>33510</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:59332/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

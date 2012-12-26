@@ -1,3 +1,5 @@
+using NDDDSample.Infrastructure.DI;
+
 namespace NDDDSample.Domain.Model.Handlings
 {
     #region Usings
@@ -6,7 +8,7 @@ namespace NDDDSample.Domain.Model.Handlings
 
     #endregion
 
-    public interface IHandlingEventRepository
+    public interface IHandlingEventRepository : IRequestLifeTimeDependency
     {
         /// <summary>
         /// Handling event repository.

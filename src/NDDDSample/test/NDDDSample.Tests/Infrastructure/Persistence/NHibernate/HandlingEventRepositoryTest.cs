@@ -1,4 +1,6 @@
-﻿namespace NDDDSample.Tests.Infrastructure.Persistence.NHibernate
+﻿using NDDDSample.Persistence.MongoDb;
+
+namespace NDDDSample.Tests.Infrastructure.Persistence.NHibernate
 {
     #region Usings
 
@@ -8,7 +10,6 @@
     using NDDDSample.Domain.Model.Cargos;
     using NDDDSample.Domain.Model.Handlings;
     using NDDDSample.Domain.Model.Locations;
-    using NDDDSample.Persistence.NHibernate;
     using NUnit.Framework;
     using Rhino.Commons;
 
@@ -25,9 +26,10 @@
         public override void SetUp()
         {
             base.SetUp();
-            handlingEventRepository = new HandlingEventRepositoryHibernate();
-            cargoRepository = new CargoRepositoryHibernate();
-            locationRepository = new LocationRepositoryHibernate();
+            var db = Utils.ShippingDb;
+            handlingEventRepository = new HandlingEventRepositoryMongo(db);
+            cargoRepository = new CargoRepositoryMongo(db);
+            locationRepository = new LocationRepositoryMongo(db);
         }
 
         [Test]

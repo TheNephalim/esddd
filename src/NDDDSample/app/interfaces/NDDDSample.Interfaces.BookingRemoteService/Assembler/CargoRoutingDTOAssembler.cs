@@ -17,7 +17,7 @@
         public CargoRoutingDTO ToDTO(Cargo cargo)
         {
             var dto = new CargoRoutingDTO(
-                cargo.TrackingId.IdString,
+                cargo.trackingId.IdString,
                 cargo.Origin.UnLocode.IdString,
                 cargo.RouteSpecification.Destination.UnLocode.IdString,
                 cargo.RouteSpecification.ArrivalDeadline,
@@ -26,7 +26,7 @@
             foreach (Leg leg in cargo.Itinerary.Legs)
             {
                 dto.AddLeg(
-                    leg.Voyage.VoyageNumber.IdString,
+                    leg.Voyage.voyageNumber.IdString,
                     leg.LoadLocation.UnLocode.IdString,
                     leg.UnloadLocation.UnLocode.IdString,
                     leg.LoadTime,

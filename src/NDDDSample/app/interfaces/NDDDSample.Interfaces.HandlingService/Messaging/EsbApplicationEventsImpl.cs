@@ -24,19 +24,19 @@
         {
             Cargo cargo = evnt.Cargo;
             logger.Info("Cargo was handled " + cargo);
-            MessageBus.Publish(new CargoHandledMessage() {TrackingId = cargo.TrackingId.IdString});
+            MessageBus.Publish(new CargoHandledMessage() {TrackingId = cargo.trackingId.IdString});
         }
 
         public void CargoWasMisdirected(Cargo cargo)
         {
             logger.Info("Cargo was misdirected " + cargo);
-            MessageBus.Publish(new CargoHandledMessageLogger() { TrackingId = cargo.TrackingId.IdString });
+            MessageBus.Publish(new CargoHandledMessageLogger() { TrackingId = cargo.trackingId.IdString });
         }
 
         public void CargoHasArrived(Cargo cargo)
         {
             logger.Info("Cargo has arrived " + cargo);
-            MessageBus.Publish(new CargoHandledMessageLogger() { TrackingId = cargo.TrackingId.IdString });
+            MessageBus.Publish(new CargoHandledMessageLogger() { TrackingId = cargo.trackingId.IdString });
         }
 
         public void ReceivedHandlingEventRegistrationAttempt(HandlingEventRegistrationAttempt attempt)

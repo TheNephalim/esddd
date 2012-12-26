@@ -1,9 +1,16 @@
-﻿namespace NDDDSample.Web
+﻿using System.Collections.Generic;
+using System.Reflection;
+using System.Web;
+using Autofac;
+using Autofac.Integration.Mvc;
+using NDDDSample.Infrastructure.DI;
+using NDDDSample.Persistence.MongoDb;
+
+namespace NDDDSample.Web
 {
     #region Usings
 
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.Routing;  
@@ -12,23 +19,23 @@
 
     using Microsoft.WindowsAzure.ServiceRuntime;
 
-    using MvcContrib.Castle;
-
     #endregion
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : Rhino.Commons.HttpModules.UnitOfWorkApplication
+    public class MvcApplication : HttpApplication
     {
-        public override void Application_Start(object sender, EventArgs e)
+        public void Application_Start(object sender, EventArgs e)
         {
-            base.Application_Start(sender, e);
-
+            var builder = new ContainerBuilder();
             log4net.Config.XmlConfigurator.Configure();
-            InitializeServiceLocator();
+            InitializeServiceLocator(builder);
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
             RegisterRoutes(RouteTable.Routes);
-            NhInitializer.Init();
+            SampleDataGenerator.LoadSampleData();
         }
 
         /// <summary>
@@ -36,19 +43,28 @@
         /// WindsorController to the container.  Also associate the Controller 
         /// with the WindsorContainer ControllerFactory.
         /// </summary>
-        protected virtual void InitializeServiceLocator()
+        protected virtual void InitializeServiceLocator(ContainerBuilder builder)
         {
-            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
-            Container.RegisterControllers(typeof (HomeController).Assembly);
+            
+            builder.RegisterControllers(typeof (HomeController).Assembly);
 
-            RegisterDependencies();
+            RegisterDependencies(builder);
 
             //TODO: Register repositories and services for controllers
            // ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(Container));
         }
 
-        private void RegisterDependencies()
+        private void RegisterDependencies(ContainerBuilder builder)
         {
+            var dependencies = GetDependencies<IRequestLifeTimeDependency>();
+            foreach (var dependency in dependencies)
+            {
+                foreach (var interfaceType in
+                    dependency.GetInterfaces().Where(interfaceType => interfaceType != typeof(IRequestLifeTimeDependency) && typeof(IRequestLifeTimeDependency).IsAssignableFrom(interfaceType)))
+                {
+                    builder.RegisterType(dependency).As(interfaceType).InstancePerLifetimeScope();
+                }
+            }
             bool isRunInTheCloud;
             try
             {
@@ -70,14 +86,39 @@
                     .Select(instance => instance.InstanceEndpoints["BookingRemoteServiceWorkerRoleEndpoint"]);
 
                 var bookingInternalEndpoint = roleInstanceEndpoints.ElementAt(new Random().Next(roleInstanceEndpoints.Count())).IPEndpoint.ToString();
-                                
-                ComponentRegistrar.AddComponentsTo(this.Container, bookingInternalEndpoint);
+                              //  builder.Register()
+                //ComponentRegistrar.AddComponentsTo(this.Container, bookingInternalEndpoint);
             }
             else
             {
-                ComponentRegistrar.AddComponentsTo(this.Container);
+               // ComponentRegistrar.AddComponentsTo(this.Container);
             }
         }
+
+        string[] assemblyNames = new[] { "NDDDSample.Infrastructure", "NDDDSample.Persistence.MongoDb", 
+            "NDDDSample.Interfaces.BookingRemoteService", "NDDDSample.Interfaces.BookingRemoteService.Common", "NDDDSample.Application" };
+        private HashSet<Assembly> assemblies = new HashSet<Assembly>();
+        public IEnumerable<Type> GetDependencies<T>()
+        {
+            foreach (var assembly in assemblyNames.Select(Assembly.Load))
+            {
+                RecursivelyAddNDDAssemblies(assembly);
+            }
+            var nonAbstractPublicClassTypes = assemblies.SelectMany(a => a.GetExportedTypes()).Where(t => t.IsClass && t.IsPublic && !t.IsAbstract).ToList();
+
+            return nonAbstractPublicClassTypes.Where(t => typeof(T).IsAssignableFrom(t));
+        }
+
+        private void RecursivelyAddNDDAssemblies(Assembly assembly)
+        {
+            var referencedAssemblies = assembly.GetReferencedAssemblies().Where(a => a.FullName.StartsWith("NDDSample"));
+            assemblies.Add(assembly);
+            foreach (var referencedAssembly in referencedAssemblies)
+            {
+                RecursivelyAddNDDAssemblies(Assembly.Load(referencedAssembly));
+            }
+        }
+
 
         private static void RegisterRoutes(RouteCollection routes)
         {

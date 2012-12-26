@@ -213,7 +213,7 @@ namespace NDDDSample.Tests.Scenarios
 
             // Next event: Load onto voyage CM003 in Hongkong
             handlingEventService.RegisterHandlingEvent(
-                DateUtil.ToDate("2009-03-03"), trackingId, SampleVoyages.v100.VoyageNumber,
+                DateUtil.ToDate("2009-03-03"), trackingId, SampleVoyages.v100.voyageNumber,
                 SampleLocations.HONGKONG.UnLocode, HandlingType.LOAD);
 
             // Check current state - should be ok
@@ -244,7 +244,7 @@ namespace NDDDSample.Tests.Scenarios
 
             // Cargo is now (incorrectly) unloaded in Tokyo
             handlingEventService.RegisterHandlingEvent(
-                DateUtil.ToDate("2009-03-05"), trackingId, SampleVoyages.v100.VoyageNumber,
+                DateUtil.ToDate("2009-03-05"), trackingId, SampleVoyages.v100.voyageNumber,
                 SampleLocations.TOKYO.UnLocode, HandlingType.UNLOAD);
 
             // Check current state - cargo is misdirected!
@@ -268,7 +268,7 @@ namespace NDDDSample.Tests.Scenarios
             Assert.IsNull(cargo.Delivery.NextExpectedActivity);
 
             // Repeat procedure of selecting one out of a number of possible routes satisfying the route spec
-            IList<Itinerary> newItineraries = bookingService.RequestPossibleRoutesForCargo(cargo.TrackingId);
+            IList<Itinerary> newItineraries = bookingService.RequestPossibleRoutesForCargo(cargo.trackingId);
             Itinerary newItinerary = SelectPreferedItinerary(newItineraries);
             cargo.AssignToRoute(newItinerary);
 
@@ -285,7 +285,7 @@ namespace NDDDSample.Tests.Scenarios
 
             // Load in Tokyo
             handlingEventService.RegisterHandlingEvent(
-                DateUtil.ToDate("2009-03-08"), trackingId, SampleVoyages.v300.VoyageNumber,
+                DateUtil.ToDate("2009-03-08"), trackingId, SampleVoyages.v300.voyageNumber,
                 SampleLocations.TOKYO.UnLocode, HandlingType.LOAD);
 
             // Check current state - should be ok
@@ -299,7 +299,7 @@ namespace NDDDSample.Tests.Scenarios
 
             // Unload in Hamburg
             handlingEventService.RegisterHandlingEvent(
-                DateUtil.ToDate("2009-03-12"), trackingId, SampleVoyages.v300.VoyageNumber,
+                DateUtil.ToDate("2009-03-12"), trackingId, SampleVoyages.v300.voyageNumber,
                 SampleLocations.HAMBURG.UnLocode, HandlingType.UNLOAD);
 
             // Check current state - should be ok
@@ -314,7 +314,7 @@ namespace NDDDSample.Tests.Scenarios
 
             // Load in Hamburg
             handlingEventService.RegisterHandlingEvent(
-                DateUtil.ToDate("2009-03-14"), trackingId, SampleVoyages.v400.VoyageNumber,
+                DateUtil.ToDate("2009-03-14"), trackingId, SampleVoyages.v400.voyageNumber,
                 SampleLocations.HAMBURG.UnLocode, HandlingType.LOAD);
 
             // Check current state - should be ok
@@ -329,7 +329,7 @@ namespace NDDDSample.Tests.Scenarios
 
             // Unload in Stockholm
             handlingEventService.RegisterHandlingEvent(
-                DateUtil.ToDate("2009-03-15"), trackingId, SampleVoyages.v400.VoyageNumber,
+                DateUtil.ToDate("2009-03-15"), trackingId, SampleVoyages.v400.voyageNumber,
                 SampleLocations.STOCKHOLM.UnLocode, HandlingType.UNLOAD);
 
             // Check current state - should be ok

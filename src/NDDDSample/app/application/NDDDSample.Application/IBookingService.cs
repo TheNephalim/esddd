@@ -1,4 +1,6 @@
-﻿namespace NDDDSample.Application
+﻿using NDDDSample.Infrastructure.DI;
+
+namespace NDDDSample.Application
 {
     #region Usings
 
@@ -12,7 +14,7 @@
     /// <summary>
     /// Cargo booking service.
     /// </summary>
-    public interface IBookingService
+    public interface IBookingService : IRequestLifeTimeDependency
     {
         /// <summary>
         /// Registers a new cargo in the tracking system, not yet routed.

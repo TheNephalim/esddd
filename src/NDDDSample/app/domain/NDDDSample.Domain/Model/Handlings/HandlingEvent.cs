@@ -1,4 +1,6 @@
-﻿namespace NDDDSample.Domain.Model.Handlings
+﻿using MongoDB.Bson;
+
+namespace NDDDSample.Domain.Model.Handlings
 {
     #region Usings
 
@@ -23,7 +25,10 @@
         private readonly DateTime registrationTime;
         private readonly HandlingType type;
         private readonly Voyage voyage;
-        private int id;
+        public ObjectId id { get; set; }
+        public ObjectId cargoId { get; set; }
+        public ObjectId locationId { get; set; }
+        public ObjectId voyageId { get; set; }
 
         #endregion
 
@@ -62,6 +67,7 @@
                 throw new ArgumentException("Voyage is not allowed with event eventType " + eventType);
             }
 
+            this.voyageId = voyage.id;
             this.voyage = voyage;
             this.completionTime = completionTime;
             this.registrationTime = registrationTime;
@@ -90,6 +96,8 @@
             this.completionTime = completionTime;
             this.registrationTime = registrationTime;
             this.type = type;
+            this.locationId = location.id;
+            this.cargoId = cargo.id;
             this.location = location;
             this.cargo = cargo;
             voyage = null;
@@ -178,7 +186,7 @@
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder("\n--- Handling event ---\n").
-                Append("Cargo: ").Append(cargo.TrackingId).Append("\n").
+                Append("Cargo: ").Append(cargo.trackingId).Append("\n").
                 Append("Type: ").Append(type).Append("\n").
                 Append("Location: ").Append(location.Name).Append("\n").
                 Append("Completed on: ").Append(completionTime).Append("\n").
@@ -186,7 +194,7 @@
 
             if (voyage != null)
             {
-                builder.Append("Voyage: ").Append(voyage.VoyageNumber).Append("\n");
+                builder.Append("Voyage: ").Append(voyage.voyageNumber).Append("\n");
             }
 
             return builder.ToString();

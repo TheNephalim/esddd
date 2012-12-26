@@ -10,9 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NDDDSample.Tests</RootNamespace>
     <AssemblyName>NDDDSample.Tests</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>Properties\NDDDSample.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -33,6 +33,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,6 +53,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -64,6 +67,10 @@
     <Reference Include="Castle.Windsor, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\Rhino\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.7.0.4714, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\app\infrastructure\NDDDSample.Persistence.MongoDb\bin\Debug\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="Moq, Version=3.1.416.3, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -93,6 +100,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\Rhino\System.Data.SQLite.DLL</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -178,9 +186,9 @@
       <Project>{6D41623A-7B9E-4DFA-8F2A-1B4EBEF7F990}</Project>
       <Name>NDDDSample.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\app\infrastructure\NDDDSample.Persistence.NHibernate\NDDDSample.Persistence.NHibernate.csproj">
-      <Project>{97413EF7-9172-4467-AB4E-ED1155272BD5}</Project>
-      <Name>NDDDSample.Persistence.NHibernate</Name>
+    <ProjectReference Include="..\..\app\infrastructure\NDDDSample.Persistence.MongoDb\NDDDSample.Persistence.MongoDb.csproj">
+      <Project>{aa8cfea2-a6b4-402e-b0ef-6a1edb917779}</Project>
+      <Name>NDDDSample.Persistence.MongoDb</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\app\interfaces\NDDDSample.Interfaces.BookingRemoteService.Common\NDDDSample.Interfaces.BookingRemoteService.Common.csproj">
       <Project>{B293706A-1955-4A51-9E87-E7F03FB3728B}</Project>
@@ -194,9 +202,9 @@
       <Project>{C61C3E52-729B-4EE3-A57E-C3D72CAEF65D}</Project>
       <Name>NDDDSample.Interfaces.PathfinderRemoteService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\app\presentation\NDDDSample.Web.Controllers\NDDDSample.Web.Controllers.csproj">
-      <Project>{CA4C3E92-0FBC-4305-BD7C-D546FEAAA5D7}</Project>
-      <Name>NDDDSample.Web.Controllers</Name>
+    <ProjectReference Include="..\..\app\presentation\NDDDSample.Web\NDDDSample.Web.csproj">
+      <Project>{30209414-642c-4636-bf68-9692e7b7bdc1}</Project>
+      <Name>NDDDSample.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

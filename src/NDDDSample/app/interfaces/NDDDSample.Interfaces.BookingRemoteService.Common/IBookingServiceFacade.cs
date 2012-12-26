@@ -1,4 +1,6 @@
-﻿namespace NDDDSample.Interfaces.BookingRemoteService.Common
+﻿using NDDDSample.Infrastructure.DI;
+
+namespace NDDDSample.Interfaces.BookingRemoteService.Common
 {
     #region Usings
 
@@ -14,7 +16,7 @@
     /// from concerns about such things as the user interface and remoting.
     /// </summary>
     [ServiceContract]
-    public interface IBookingServiceFacade
+    public interface IBookingServiceFacade : IRequestLifeTimeDependency
     {
         [OperationContract, FaultContract(typeof (NDDDRemoteBookingException))]        
         string BookNewCargo(string origin, string destination, DateTime arrivalDeadline);

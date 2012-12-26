@@ -13,7 +13,7 @@
     /// </summary>
     public class VoyageNumber : IValueObject<VoyageNumber>
     {
-        private readonly string number;
+        public string id { get; set; }
 
         #region Constr
 
@@ -21,7 +21,7 @@
         {
             Validate.NotNull(number);
 
-            this.number = number;
+            this.id = number;
         }
 
         protected VoyageNumber()
@@ -33,7 +33,7 @@
 
         public string IdString
         {
-            get { return number; }
+            get { return id; }
         }
 
         #region IValueObject<VoyageNumber> Members
@@ -45,7 +45,7 @@
         /// <returns>true if the given value object's and this value object's attributes are the same.</returns>
         public bool SameValueAs(VoyageNumber other)
         {
-            return other != null && number.Equals(other.number);
+            return other != null && id.Equals(other.id);
         }
 
         #endregion
@@ -75,12 +75,12 @@
 
         public override int GetHashCode()
         {
-            return number.GetHashCode();
+            return id.GetHashCode();
         }
 
         public override string ToString()
         {
-            return number;
+            return id;
         }
 
         #endregion

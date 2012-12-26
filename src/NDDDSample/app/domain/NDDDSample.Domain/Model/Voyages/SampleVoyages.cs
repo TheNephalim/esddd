@@ -165,7 +165,7 @@
                     if (fieldInfo.FieldType == typeof (Voyage))
                     {
                         var voyage = (Voyage) fieldInfo.GetValue(null);
-                        ALL.Add(voyage.VoyageNumber, voyage);
+                        ALL.Add(voyage.voyageNumber, voyage);
                     }
                 }
                 catch (Exception e)

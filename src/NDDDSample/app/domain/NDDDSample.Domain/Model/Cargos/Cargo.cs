@@ -1,3 +1,5 @@
+using MongoDB.Bson;
+
 namespace NDDDSample.Domain.Model.Cargos
 {
     #region Usings
@@ -41,9 +43,8 @@ namespace NDDDSample.Domain.Model.Cargos
     public class Cargo : IEntity<Cargo>
     {
         private readonly Location origin;
-        private readonly TrackingId trackingId;
         private Delivery delivery;
-        private int id;
+        public ObjectId id { get; set; }
         private Itinerary itinerary;
         private RouteSpecification routeSpecification;
 
@@ -119,10 +120,7 @@ namespace NDDDSample.Domain.Model.Cargos
         /// <summary>
         /// The tracking id is the identity of this entity, and is unique.
         /// </summary>      
-        public virtual TrackingId TrackingId
-        {
-            get { return trackingId; }
-        }
+        public virtual TrackingId trackingId { get; set; }
 
         /// <summary>
         /// Origin location.

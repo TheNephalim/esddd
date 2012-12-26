@@ -1,4 +1,6 @@
-﻿namespace NDDDSample.Domain.Model.Locations
+﻿using NDDDSample.Infrastructure.DI;
+
+namespace NDDDSample.Domain.Model.Locations
 {
     #region Usings
 
@@ -9,7 +11,7 @@
     /// <summary>
     /// Location repository interface
     /// </summary>
-    public interface ILocationRepository
+    public interface ILocationRepository : IRequestLifeTimeDependency
     {
         /// <summary>
         /// Finds a location using given unlocode.

@@ -13,11 +13,11 @@
         {
             Console.WriteLine("Starting BookingRemoteService.Host");
 
-            using (ContainerBuilder.Build())
-            {
-                Console.WriteLine("BookingRemoteService.Host Started, hit Enter to close");
-                Console.ReadLine();
-            }
+//            using (ContainerBuilder.Build())
+//            {
+//                Console.WriteLine("BookingRemoteService.Host Started, hit Enter to close");
+//                Console.ReadLine();
+//            }
         }     
     }    
 }

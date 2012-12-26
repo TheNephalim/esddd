@@ -1,4 +1,6 @@
-﻿namespace NDDDSample.Domain.Model.Locations
+﻿using MongoDB.Bson;
+
+namespace NDDDSample.Domain.Model.Locations
 {
     #region Usings
 
@@ -17,9 +19,7 @@
     {
         public static readonly Location UNKNOWN = new Location(new UnLocode("XXXXX"), "Unknown location");
         private readonly string name;
-        private readonly UnLocode unLocode;
-        private int id;
-
+        public ObjectId id { get; set; }
         #region Constr
 
         /// <summary>
@@ -33,7 +33,7 @@
             Validate.NotNull(unLocode);
             Validate.NotNull(name);
 
-            this.unLocode = unLocode;
+            this.UnLocode = unLocode;
             this.name = name;
         }
 
@@ -53,7 +53,7 @@
         /// <returns>true if the given value object's and this value object's attributes are the same.</returns>
         public virtual bool SameIdentityAs(Location other)
         {
-            return unLocode.SameValueAs(other.UnLocode);
+            return UnLocode.SameValueAs(other.UnLocode);
         }
 
         #endregion
@@ -86,12 +86,12 @@
 
         public override int GetHashCode()
         {
-            return unLocode.GetHashCode();
+            return UnLocode.GetHashCode();
         }
 
         public override string ToString()
         {
-            return name + " [" + unLocode + "]";
+            return name + " [" + UnLocode + "]";
         }
 
         #endregion
@@ -101,10 +101,7 @@
         /// <summary>
         /// Voyage UN Locode for this location.
         /// </summary>
-        public virtual UnLocode UnLocode
-        {
-            get { return unLocode; }
-        }
+        public virtual UnLocode UnLocode { get; set; }
 
         /// <summary>
         /// Actual name of this location, e.g. "Stockholm".

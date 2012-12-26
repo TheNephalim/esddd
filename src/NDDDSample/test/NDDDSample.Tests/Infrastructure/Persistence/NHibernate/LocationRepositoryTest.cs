@@ -1,10 +1,11 @@
-﻿namespace NDDDSample.Tests.Infrastructure.Persistence.NHibernate
+﻿using NDDDSample.Persistence.MongoDb;
+
+namespace NDDDSample.Tests.Infrastructure.Persistence.NHibernate
 {
     #region Usings
 
     using System.Collections.Generic;
     using NDDDSample.Domain.Model.Locations;
-    using NDDDSample.Persistence.NHibernate;
     using NUnit.Framework;
 
     #endregion
@@ -18,7 +19,7 @@
         public override void SetUp()
         {
             base.SetUp();
-            locationRepository = new LocationRepositoryHibernate();
+            locationRepository = new LocationRepositoryMongo(Utils.ShippingDb);
         }
 
 

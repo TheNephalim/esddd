@@ -1,4 +1,6 @@
-﻿namespace NDDDSample.Tests.Infrastructure.Persistence.NHibernate
+﻿using NDDDSample.Persistence.MongoDb;
+
+namespace NDDDSample.Tests.Infrastructure.Persistence.NHibernate
 {
     #region Usings
 
@@ -9,8 +11,6 @@
     using NDDDSample.Domain.Model.Handlings;
     using NDDDSample.Domain.Model.Locations;
     using NDDDSample.Domain.Model.Voyages;
-    using NDDDSample.Persistence.NHibernate;
-    using NDDDSample.Persistence.NHibernate.Utils;
     using NUnit.Framework;
     using Rhino.Commons;
 
@@ -28,10 +28,11 @@
         public override void SetUp()
         {
             base.SetUp();
-            cargoRepository = new CargoRepositoryHibernate();
-            locationRepository = new LocationRepositoryHibernate();
-            voyageRepository = new VoyageRepositoryHibernate();
-            handlingEventRepository = new HandlingEventRepositoryHibernate();
+            var db = Utils.ShippingDb;
+            cargoRepository = new CargoRepositoryMongo(db);
+            locationRepository = new LocationRepositoryMongo(db);
+            voyageRepository = new VoyageRepositoryMongo(db);
+            handlingEventRepository = new HandlingEventRepositoryMongo(db);
         }
 
         [Test]
@@ -97,7 +98,7 @@
 
         private void AssertLeg(Leg firstLeg, String vn, Location expectedFrom, Location expectedTo)
         {
-            Assert.AreEqual(new VoyageNumber(vn), firstLeg.Voyage.VoyageNumber);
+            Assert.AreEqual(new VoyageNumber(vn), firstLeg.Voyage.voyageNumber);
             Assert.AreEqual(expectedFrom, firstLeg.LoadLocation);
             Assert.AreEqual(expectedTo, firstLeg.UnloadLocation);
         }

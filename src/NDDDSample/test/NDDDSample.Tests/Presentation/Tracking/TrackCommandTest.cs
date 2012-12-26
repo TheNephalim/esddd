@@ -1,4 +1,6 @@
-﻿namespace NDDDSample.Tests.Presentation.Tracking
+﻿using NDDDSample.Web.Controllers.Tracking;
+
+namespace NDDDSample.Tests.Presentation.Tracking
 {
     #region Usings
 
@@ -6,7 +8,6 @@
     using System.Web.Mvc;
     using Moq;
     using NUnit.Framework;
-    using Web.Controllers.Tracking;
 
     #endregion
 

@@ -54,7 +54,7 @@
 
         protected static LegDTO ToLegDTO(Leg leg)
         {
-            VoyageNumber voyageNumber = leg.Voyage.VoyageNumber;
+            VoyageNumber voyageNumber = leg.Voyage.voyageNumber;
             UnLocode from = leg.LoadLocation.UnLocode;
             UnLocode to = leg.UnloadLocation.UnLocode;
             return new LegDTO(voyageNumber.IdString, from.IdString, to.IdString, leg.LoadTime, leg.UnloadTime);

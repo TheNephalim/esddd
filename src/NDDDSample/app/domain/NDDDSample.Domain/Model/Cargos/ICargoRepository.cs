@@ -1,3 +1,5 @@
+using NDDDSample.Infrastructure.DI;
+
 namespace NDDDSample.Domain.Model.Cargos
 {
     #region Usings
@@ -6,7 +8,7 @@ namespace NDDDSample.Domain.Model.Cargos
 
     #endregion
 
-    public interface ICargoRepository
+    public interface ICargoRepository : IRequestLifeTimeDependency
     {
         /// <summary>
         /// Finds a cargo using given id.

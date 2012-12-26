@@ -46,10 +46,10 @@
                 Cargo cargo = CargoFactory.NewCargo(trackingId, origin, destination, arrivalDeadline);
 
                 cargoRepository.Store(cargo);
-                logger.Info("Booked new cargo with tracking id " + cargo.TrackingId);
+                logger.Info("Booked new cargo with tracking id " + cargo.trackingId);
 
                 transactionScope.Complete();
-                return cargo.TrackingId;
+                return cargo.trackingId;
             }
         }
 

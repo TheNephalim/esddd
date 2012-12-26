@@ -47,7 +47,7 @@ namespace NDDDSample.Tests.Domain.Model.Handlings
         {
             cargoRepositoryMock.Setup(rep => rep.Find(trackingId)).Returns(cargo);
 
-            VoyageNumber voyageNumber = SampleVoyages.CM001.VoyageNumber;
+            VoyageNumber voyageNumber = SampleVoyages.CM001.voyageNumber;
             UnLocode unLocode = SampleLocations.STOCKHOLM.UnLocode;
             DateTime completionTime = DateTime.Now.AddDays(10);
             HandlingEvent handlingEvent = factory.CreateHandlingEvent(
@@ -92,7 +92,7 @@ namespace NDDDSample.Tests.Domain.Model.Handlings
             {
                 DateTime completionTime = DateTime.Now.AddDays(10);
                 factory.CreateHandlingEvent(
-                    DateTime.Now, completionTime, trackingId, SampleVoyages.CM001.VoyageNumber, invalid,
+                    DateTime.Now, completionTime, trackingId, SampleVoyages.CM001.voyageNumber, invalid,
                     HandlingType.LOAD
                     );
                 Assert.Fail("Expected UnknownLocationException");
@@ -127,7 +127,7 @@ namespace NDDDSample.Tests.Domain.Model.Handlings
             {
                 DateTime completionTime = DateTime.Now.AddDays(10);
                 factory.CreateHandlingEvent(
-                    DateTime.Now, completionTime, trackingId, SampleVoyages.CM001.VoyageNumber,
+                    DateTime.Now, completionTime, trackingId, SampleVoyages.CM001.voyageNumber,
                     SampleLocations.STOCKHOLM.UnLocode, HandlingType.LOAD
                     );
                 Assert.Fail("Expected UnknownCargoException");

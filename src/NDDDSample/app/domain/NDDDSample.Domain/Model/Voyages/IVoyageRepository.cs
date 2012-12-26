@@ -1,6 +1,8 @@
+using NDDDSample.Infrastructure.DI;
+
 namespace NDDDSample.Domain.Model.Voyages
 {
-    public interface IVoyageRepository
+    public interface IVoyageRepository : IRequestLifeTimeDependency
     {
         /// <summary>
         /// Finds a voyage using voyage number.

@@ -12,7 +12,7 @@ namespace NDDDSample.Domain.Model.Cargos
     /// </summary>
     public class TrackingId : IValueObject<TrackingId>
     {
-        private readonly string id;
+        public string Id { get; set; }
 
         #region Constr
 
@@ -23,7 +23,7 @@ namespace NDDDSample.Domain.Model.Cargos
         public TrackingId(string id)
         {
             Validate.NotNull(id);
-            this.id = id;
+            this.Id = id;
         }
 
 
@@ -41,7 +41,7 @@ namespace NDDDSample.Domain.Model.Cargos
         /// </summary>
         public string IdString
         {
-            get { return id; }
+            get { return Id; }
         }
 
         #endregion
@@ -55,7 +55,7 @@ namespace NDDDSample.Domain.Model.Cargos
         /// <returns>true if the given value object's and this value object's attributes are the same.</returns>
         public bool SameValueAs(TrackingId other)
         {
-            return other != null && id.Equals(other.id);
+            return other != null && Id.Equals(other.Id);
         }
 
         #endregion
@@ -81,12 +81,12 @@ namespace NDDDSample.Domain.Model.Cargos
 
         public override int GetHashCode()
         {
-            return id.GetHashCode();
+            return Id.GetHashCode();
         }
 
         public override string ToString()
         {
-            return id;
+            return Id;
         }
 
         #endregion

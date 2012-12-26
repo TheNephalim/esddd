@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true"
-    Inherits="System.Web.Mvc.ViewPage<CargoTrackingViewAdapter>" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<NDDDSample.Web.Controllers.Tracking.CargoTrackingViewAdapter>" %>
 
 <%@ Import Namespace="NDDDSample.Web.Controllers.Tracking" %>
 <asp:Content ID="trackSearchContent" ContentPlaceHolderID="MainContent" runat="server">

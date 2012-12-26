@@ -1,3 +1,7 @@
+using System.Linq;
+using System.Reflection;
+using Autofac;
+
 namespace NDDDSample.Web.Initializers
 {
     #region Usings
@@ -5,10 +9,6 @@ namespace NDDDSample.Web.Initializers
     using System;
     using System.ServiceModel;
 
-    using Castle.Facilities.WcfIntegration;
-    using Castle.Facilities.WcfIntegration.Behaviors;
-    using Castle.MicroKernel.Registration;
-    using Castle.Windsor;
     using NDDDSample.Infrastructure.Utils;
     using NDDDSample.Interfaces.BookingRemoteService.Common;
 
@@ -18,36 +18,77 @@ namespace NDDDSample.Web.Initializers
     {
         private static string bookingRemoteServiceWorkerRoleEndpoint = "localhost:8081";
 
-        public static void AddComponentsTo(IWindsorContainer container, string bookingEndpoint)
+        public static void AddComponentsTo(ContainerBuilder builder, string bookingEndpoint)
         {
-            bookingRemoteServiceWorkerRoleEndpoint = bookingEndpoint;            
-            AddComponentsTo(container);
+            bookingRemoteServiceWorkerRoleEndpoint = bookingEndpoint;
+            AddComponentsTo(builder);
         }
 
-        public static void AddComponentsTo(IWindsorContainer container)
+        public static void AddComponentsTo(ContainerBuilder builder)
         {
-            AddCustomRepositoriesTo(container);
+            AddCustomRepositoriesTo(builder);
         }
 
-        private static void AddCustomRepositoriesTo(IWindsorContainer container)
+        private static void AddCustomRepositoriesTo(ContainerBuilder builder)
         {
-            container.Register(
-                AllTypes.Pick()
-                    //Scan repository assembly for domain model interfaces implementation
-                    .FromAssemblyNamed("NDDDSample.Persistence.NHibernate")
-                    .WithService.FirstNonGenericCoreInterface("NDDDSample.Domain.Model"));
+//            var assembly = Assembly.Load("NDDDSample.Persistence.NHibernate");
+//            assembly.GetTypes()
+//                .Where(type => type.Namespace.Equals("NDDDSample.Domain.Model", StringComparison.CurrentCultureIgnoreCase))
+//                .First
+//            builder.Register<NDDDSample.Domain.Model>(
+//                AllTypes.Pick()
+//                    //Scan repository assembly for domain model interfaces implementation
+//                    .FromAssemblyNamed("")
+//                    .WithService.FirstNonGenericCoreInterface("NDDDSample.Domain.Model"));
+//
+//            builder.AddFacility<WcfFacility>();
+//
+//            builder.Register(
+//                Component.For<MessageLifecycleBehavior>(),                
+//                Component.For<IBookingServiceFacade>()                
+//                    .Named("bookingServiceFacade")
+//                    .LifeStyle.Transient
+//                .ActAs(DefaultClientModel
+//                    .On(WcfEndpoint.BoundTo(new NetTcpBinding())
+//                        .At(String.Format("net.tcp://{0}/BookingServiceFacade", bookingRemoteServiceWorkerRoleEndpoint))
+//                        )));  
+//          
+//              var interfaces = type.GetInterfaces()
+//                                                 .Where(
+//                                                 t =>
+//                                                 t.IsGenericType == false && t.Namespace.StartsWith(interfaceNamespace));
+//
+//                                             if (interfaces.Count() > 0)
+//                                             {
+//                                                 return new[] {interfaces.ElementAt(0)};
+//                                             }
+            var assembly = Assembly.Load("NDDDSample.Persistence.NHibernate");
+            string ndddsampleDomainModel = "NDDDSample.Domain.Model";
+            var repoType = assembly.GetTypes().First(type => type.Namespace.Equals(ndddsampleDomainModel, StringComparison.CurrentCultureIgnoreCase));
 
-            container.AddFacility<WcfFacility>();
 
-            container.Register(
-                Component.For<MessageLifecycleBehavior>(),                
-                Component.For<IBookingServiceFacade>()                
-                    .Named("bookingServiceFacade")
-                    .LifeStyle.Transient
-                .ActAs(DefaultClientModel
-                    .On(WcfEndpoint.BoundTo(new NetTcpBinding())
-                        .At(String.Format("net.tcp://{0}/BookingServiceFacade", bookingRemoteServiceWorkerRoleEndpoint))
-                        )));            
+            //            builder.AddFacility<WcfFacility>();
+
+            //            builder.Register(
+            //                Component.For<MessageLifecycleBehavior>(),                
+            //                Component.For<IBookingServiceFacade>()                
+            //                    .Named("bookingServiceFacade")
+            //                    .LifeStyle.Transient
+            //                .ActAs(DefaultClientModel
+            //                    .On(WcfEndpoint.BoundTo(new NetTcpBinding())
+            //                        .At(String.Format("net.tcp://{0}/BookingServiceFacade", bookingRemoteServiceWorkerRoleEndpoint))
+            //                        )));  
+
+//            var interfaces = repoType.GetInterfaces()
+//                                                 .Where(
+//                                                 t =>
+//                                                 t.IsGenericType == false && t.Namespace.StartsWith(ndddsampleDomainModel));
+//
+//            if (interfaces.Count() > 0)
+//            {
+//                return new[] { interfaces.ElementAt(0) };
+//            }
+
         }
     }
 }

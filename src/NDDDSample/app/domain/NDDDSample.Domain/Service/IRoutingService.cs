@@ -1,4 +1,6 @@
-﻿namespace NDDDSample.Domain.Service
+﻿using NDDDSample.Infrastructure.DI;
+
+namespace NDDDSample.Domain.Service
 {
     #region Usings
 
@@ -10,7 +12,7 @@
     /// <summary>
     ///  Routing service.
     /// </summary>
-    public interface IRoutingService
+    public interface IRoutingService : IRequestLifeTimeDependency
     {
         /// <summary>
         /// Fetch Routes For Specification

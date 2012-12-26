@@ -40,13 +40,13 @@
 
         public void Store(Cargo cargo)
         {
-            if (cargoDb.ContainsKey(cargo.TrackingId.IdString))
+            if (cargoDb.ContainsKey(cargo.trackingId.IdString))
             {
-                cargoDb[cargo.TrackingId.IdString] = cargo;
+                cargoDb[cargo.trackingId.IdString] = cargo;
             }
             else
             {
-                cargoDb.Add(cargo.TrackingId.IdString, cargo);
+                cargoDb.Add(cargo.trackingId.IdString, cargo);
             }
         }
 
